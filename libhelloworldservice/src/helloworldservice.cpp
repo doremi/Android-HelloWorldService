@@ -10,7 +10,7 @@
 #include <string.h>
 #include <cutils/atomic.h>
 #include <utils/Errors.h>
-#include <utils/IServiceManager.h>
+#include <binder/IServiceManager.h>
 #include <utils/String16.h>
 
 #include "helloworldservice.h"
