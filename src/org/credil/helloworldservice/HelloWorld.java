@@ -12,8 +12,17 @@ import android.os.RemoteException;
 import android.os.ServiceManager;
 import android.util.Log;
 import android.widget.TextView;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
+import android.widget.Toast;
+import android.app.PendingIntent;
+import android.app.AlarmManager;
+import java.util.Calendar;
+import android.content.BroadcastReceiver;
 
 public class HelloWorld extends Activity {
+    Toast mToast;
 
     private static final String LOG_TAG = "HelloWorld";
 
@@ -21,11 +30,41 @@ public class HelloWorld extends Activity {
     public TextView helloBox;
     public ServiceConnection serviceConnection;
 
+    private OnClickListener mOneShotListener = new OnClickListener() {
+	public void onClick(View v) {
+//		mToast = Toast.makeText(HelloWorld.this, R.string.fuck_toast, Toast.LENGTH_LONG);
+//		mToast.show();
+		Intent intent = new Intent(HelloWorld.this, OneShot.class);
+//		intent.setAction("fuck.action");
+//		Log.i("Fuck", "action: " + intent.getAction());
+		PendingIntent sender = PendingIntent.getBroadcast(HelloWorld.this,
+			0, intent, 0);
+/*
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTimeInMillis(System.currentTimeMillis());
+		calendar.add(Calendar.SECOND, 2);
+
+		AlarmManager am = (AlarmManager)getSystemService(ALARM_SERVICE);
+		am.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), sender);
+*/
+		try {
+			sender.send();
+		} catch (PendingIntent.CanceledException e) {
+			Log.i("fuck", "Error while send intent");
+		}
+	}
+    };
+
     /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.hello);
+
+	Button button = (Button)findViewById(R.id.one_shot);
+	button.setOnClickListener(mOneShotListener);
+
+	Intent intent = new Intent(HelloWorld.this, OneShot.class);
 
         helloBox = (TextView)findViewById(R.id.HelloView01);
         helloBox.setText("start");

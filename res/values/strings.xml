@@ -3,9 +3,9 @@
   
   
   <string name="app_name">HelloWorldService</string>
-  
-  
-  
+  <string name="one_shot_received">Receive a fuck intent</string>
+  <string name="fuck_toast">Yeah shit!</string>  
+  <string name="button_text">FUCK Me!</string>  
 
   
 
