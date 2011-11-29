@@ -36,7 +36,9 @@ public:
                 android::Parcel data, reply;
                 data.writeInterfaceToken(IHelloWorldService::getInterfaceDescriptor());
                 data.writeCString(str);
-                remote()->transact(HW_HELLOTHERE, data, &reply, android::IBinder::FLAG_ONEWAY);
+                remote()->transact(HW_HELLOTHERE, data, &reply);//, android::IBinder::FLAG_ONEWAY);
+
+                printf("%d\n", reply.readInt32());
         }
 
 };

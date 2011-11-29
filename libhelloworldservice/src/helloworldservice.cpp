@@ -62,6 +62,8 @@ android::status_t HelloWorldService::onTransact(uint32_t code,
                 /* hellothere(str); */
                 LOGE("hello: %s\n", str);
                 printf("hello: %s\n", str);
+                reply->writeInt32(123);
+
                 return android::NO_ERROR;
         } break;
         default:
